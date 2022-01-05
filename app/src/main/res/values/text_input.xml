@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+        <style name="MyEditTextStyle.LightGrey" parent="Widget.MaterialComponents.TextInputEditText.OutlinedBox">
+            <item name="android:textColor">@color/black</item>
+            <item name="android:textColorHint">@color/black</item>
+            <item name="android:textSize">14sp</item>
+            <item name="android:paddingTop">16dp</item>
+            <item name="android:paddingBottom">16dp</item>
+        </style>
+        <style name="ThemeOverlay.LightGrey" parent="">
+            <item name="editTextStyle">@style/MyEditTextStyle.LightGrey</item>
+        </style>
+
+
+        <style name="MyTextInputLayout.LightGrey" parent="@style/Widget.MaterialComponents.TextInputLayout.FilledBox">
+            <item name="materialThemeOverlay">@style/ThemeOverlay.LightGrey</item>
+            <item name="boxBackgroundMode">filled</item>
+            <item name="boxBackgroundColor">@color/white_200</item>
+<!--            <item name="prefixTextAppearance">@style/MyAppearance.TextInput.Primary</item>-->
+            <item name="boxStrokeColor">@color/grey_300</item>
+            <item name="hintEnabled">false</item>
+            <item name="boxCornerRadiusTopEnd">5dp</item>
+            <item name="boxCornerRadiusTopStart">5dp</item>
+            <item name="boxCornerRadiusBottomEnd">5dp</item>
+            <item name="boxCornerRadiusBottomStart">5dp</item>
+            <item name="boxStrokeWidth">0dp</item>
+            <item name="boxStrokeWidthFocused">0dp</item>
+        </style>
+    </resources>

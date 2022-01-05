@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/rajbh/AndroidStudioProjects/TAR-master/app/src/main/res/layout-v26/activity_chat.xml" value="0.8" />
+        <entry key="..\:/Users/rajbh/AndroidStudioProjects/TAR-master/app/src/main/res/layout/activity_all_users_new.xml" value="0.12158054711246201" />
+        <entry key="..\:/Users/rajbh/AndroidStudioProjects/TAR-master/app/src/main/res/layout/activity_edit_profile.xml" value="0.24048913043478262" />
+        <entry key="..\:/Users/rajbh/AndroidStudioProjects/TAR-master/app/src/main/res/layout/edit_name.xml" value="0.24048913043478262" />
+        <entry key="..\:/Users/rajbh/Downloads/firebaseChat/firebaseChat/app/src/main/res/drawable/recievershap.xml" value="0.26614583333333336" />
+        <entry key="..\:/Users/rajbh/Downloads/firebaseChat/firebaseChat/app/src/main/res/drawable/sendbg.xml" value="0.26614583333333336" />
+        <entry key="..\:/Users/rajbh/Downloads/firebaseChat/firebaseChat/app/src/main/res/drawable/sendddd.xml" value="0.26614583333333336" />
+        <entry key="..\:/Users/rajbh/Downloads/firebaseChat/firebaseChat/app/src/main/res/drawable/sent_drawable.xml" value="0.26614583333333336" />
+        <entry key="..\:/Users/rajbh/Downloads/firebaseChat/firebaseChat/app/src/main/res/drawable/shape_item.xml" value="0.26614583333333336" />
+        <entry key="..\:/Users/rajbh/Downloads/firebaseChat/firebaseChat/app/src/main/res/layout-v26/activity_chat.xml" value="0.1793478260869565" />
+        <entry key="..\:/Users/rajbh/Downloads/firebaseChat/firebaseChat/app/src/main/res/layout/activity_all_users_new.xml" value="0.25" />
+        <entry key="..\:/Users/rajbh/Downloads/firebaseChat/firebaseChat/app/src/main/res/layout/activity_edit_profile.xml" value="0.536" />
+        <entry key="..\:/Users/rajbh/Downloads/firebaseChat/firebaseChat/app/src/main/res/layout/activity_homepage.xml" value="0.4" />
+        <entry key="..\:/Users/rajbh/Downloads/firebaseChat/firebaseChat/app/src/main/res/layout/activity_refresh.xml" value="0.245018115942029" />
+        <entry key="..\:/Users/rajbh/Downloads/firebaseChat/firebaseChat/app/src/main/res/layout/item_receive.xml" value="0.536" />
+        <entry key="..\:/Users/rajbh/Downloads/firebaseChat/firebaseChat/app/src/main/res/layout/item_sent.xml" value="0.264" />
+        <entry key="..\:/Users/rajbh/Downloads/firebaseChat/firebaseChat/app/src/main/res/layout/item_user_row.xml" value="0.264" />
+        <entry key="..\:/Users/rajbh/Downloads/firebaseChat/firebaseChat/app/src/main/res/layout/reciever_layout.xml" value="0.25" />
+        <entry key="..\:/Users/rajbh/Downloads/firebaseChat/firebaseChat/app/src/main/res/layout/sender_layout.xml" value="0.25" />
+        <entry key="..\:/androidLearning/firebaseChatt/app/src/main/res/layout/activity_all_users_new.xml" value="0.15989583333333332" />
+        <entry key="..\:/androidLearning/firebaseChatt/app/src/main/res/layout/activity_edit_profile.xml" value="0.1" />
+        <entry key="..\:/androidLearning/firebaseChatt/app/src/main/res/layout/activity_homepage.xml" value="0.17552083333333332" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

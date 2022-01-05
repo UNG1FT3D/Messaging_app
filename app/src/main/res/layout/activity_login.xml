@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="20dp"
+    tools:context=".Login"
+    android:background="#ffff">
+
+    <ImageView
+        android:id="@+id/logoImage"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:background="@drawable/chatlogo" />
+
+    <TextView
+        android:id="@+id/logoname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/logoImage"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="-30dp"
+        android:fontFamily="@font/antic"
+        android:textStyle="bold"
+        android:text="Peopleist messenger"
+        android:textAllCaps="true"
+        android:textColor="#3C3939"
+        android:textSize="40sp" />
+
+    <TextView
+        android:id="@+id/sLogo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/logoname"
+        android:layout_marginLeft="20dp"
+        android:fontFamily="@font/antic"
+        android:text="Where Good Vibes Are Brewing"
+        android:textSize="18sp" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
+        android:orientation="vertical">
+
+        <com.google.android.gms.common.SignInButton
+            android:id="@+id/btnGoogle"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="40px"
+            android:layout_gravity="center"
+
+            android:text="Text"
+            android:textSize="22sp" />
+
+    </LinearLayout>
+
+</RelativeLayout>
