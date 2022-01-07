@@ -73,10 +73,12 @@ public class AllUsersNew extends AppCompatActivity {
         inviteBtn.setOnClickListener(view -> {
             Intent intent=new Intent(AllUsersNew.this,InvitePage.class);
             startActivity(intent);
+            finish();
         });
         BackButton.setOnClickListener(v -> {
             Intent intent=new Intent(AllUsersNew.this,Homepage.class);
             startActivity(intent);
+            finish();
         });
 
 
@@ -84,19 +86,16 @@ public class AllUsersNew extends AppCompatActivity {
             startActivity(new Intent(AllUsersNew.this,Login.class));
         }
 
+        //Searching
         etSearch.addTextChangedListener(new TextWatcher() {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 String str  = etSearch.getText().toString();
-                List<Users> filterUsers = usersArrayList.stream()
-                        .filter(user -> user.Name.contains(str.toString()))
-                        .collect(Collectors.toList());
-
-                adapter.updateData(new ArrayList<>(filterUsers));
-                filterUsers.clear();
-            }
-
-
+                    List<Users> filterUsers = usersArrayList.stream()
+                            .filter(user -> user.Name.contains(s.toString()))
+                            .collect(Collectors.toList());
+                    adapter.updateData(new ArrayList<>(filterUsers));
+             }
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 Log.d("HomeTAG", "beforeTextChanged: beforetextchange}");
@@ -107,6 +106,7 @@ public class AllUsersNew extends AppCompatActivity {
 
             }
         });
+
 
         /*db.collection("user").addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
@@ -135,7 +135,6 @@ public class AllUsersNew extends AppCompatActivity {
 
 
         DatabaseReference reference=database.getReference().child("user");
-
         reference.orderByChild("name").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -146,14 +145,9 @@ public class AllUsersNew extends AppCompatActivity {
                 }
                 adapter.notifyDataSetChanged();
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
             }
         });
-
     }
-
-
 }

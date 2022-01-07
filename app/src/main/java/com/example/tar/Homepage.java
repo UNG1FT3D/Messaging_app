@@ -8,8 +8,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.widget.ImageView;
 
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
@@ -29,14 +27,13 @@ public class Homepage extends AppCompatActivity {
     FirebaseAuth auth;
     RecyclerView mainUserRecyclerView;
     UserAdapter adapter;
-    FirebaseDatabase database;
+    FirebaseDatabase database,database2;
     FirebaseFirestore db;
     DatabaseReference rootRef;
     ExtendedFloatingActionButton inviteBtn;
     String userID;
     ImageView logout,currentProfile;
     ArrayList<Users> usersArrayList;
-
 
 
 
@@ -50,6 +47,7 @@ public class Homepage extends AppCompatActivity {
         auth=FirebaseAuth.getInstance();
         db=FirebaseFirestore.getInstance();
         database=FirebaseDatabase.getInstance();
+        database2=FirebaseDatabase.getInstance();
         rootRef=FirebaseDatabase.getInstance().getReference();
 
         userID= Objects.requireNonNull(auth.getCurrentUser().getUid());
@@ -69,9 +67,25 @@ public class Homepage extends AppCompatActivity {
         //manager.setStackFromEnd(true);
 
 
-        mainUserRecyclerView.setAdapter(adapter);
+        //For Account Setting Image
+        database.getReference().child("user").child(auth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String image;
+                if(snapshot.exists()){
+                    image=snapshot.child("userProfile").getValue(String.class);
+                    Picasso.get().load(image).placeholder(R.drawable.watsapp).into(currentProfile);
+                }
+            }
 
-        Picasso.get().load(auth.getCurrentUser().getPhotoUrl()).placeholder(R.drawable.watsapp).into(currentProfile);
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+        mainUserRecyclerView.setAdapter(adapter);
 
         currentProfile.setOnClickListener(v -> {
             Intent intent=new Intent(Homepage.this,EditProfile.class);
@@ -114,8 +128,5 @@ public class Homepage extends AppCompatActivity {
 
             }
         });
-
     }
-
-
 }

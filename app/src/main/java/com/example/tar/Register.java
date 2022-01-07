@@ -1,20 +1,33 @@
 package com.example.tar;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Log;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -28,8 +41,10 @@ public class Register extends AppCompatActivity {
     FirebaseDatabase database;
     String personName,personEmail;
     FirebaseFirestore db;
+    GoogleSignInClient mGoogleSignInClient;
     String userID;
     FirebaseStorage storage;
+    String personIdPhoto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +71,7 @@ public class Register extends AppCompatActivity {
 
             StorageReference storageReference=storage.getReference().child("images").child(auth.getUid());
 
-            /*DocumentReference documentReference = db.collection("user").document(personId);
+            DocumentReference documentReference = db.collection("user").document(personId);
             Map<String, Object> user = new HashMap<>();
             user.put("email", personEmail);
             user.put("Name", personName);
@@ -69,7 +84,7 @@ public class Register extends AppCompatActivity {
                     personIdPhoto=uri.toString();
                 }
             }));
-            documentReference.set(user).addOnSuccessListener(unused -> Log.d("User created", auth.getUid()));*/
+            documentReference.set(user).addOnSuccessListener(unused -> Log.d("User created", auth.getUid()));
             userID = auth.getCurrentUser().getUid();
             DatabaseReference reference = database.getReference().child("user").child(Objects.requireNonNull(auth.getUid()));
             String status = "hey am new here";

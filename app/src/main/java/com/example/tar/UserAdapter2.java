@@ -8,17 +8,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.firebase.firestore.Query.Direction;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -32,10 +24,11 @@ public class UserAdapter2 extends RecyclerView.Adapter<UserAdapter2.MyViewHolder
         this.usersArrayList=usersArrayList;
     }
 
+
     void updateData(ArrayList<Users> usersArrayList){
         this.usersArrayList  = usersArrayList;
+        notifyDataSetChanged();
     }
-
 
     @NonNull
     @Override
@@ -77,13 +70,8 @@ public class UserAdapter2 extends RecyclerView.Adapter<UserAdapter2.MyViewHolder
                 ViewGroup.LayoutParams params = holder.itemView.getLayoutParams();
                 params.height = 0;
                 holder.itemView.setLayoutParams(params);
-
                 }
-
-
-
                 holder.name.setText(users.Name);
-                //Picasso.get().load(users.getUserProfile()).placeholder(R.drawable.watsapp).into(holder.profileImg);
                 holder.itemView.setOnClickListener(view -> {
                     Intent intent=new Intent(context,ChatActivity.class);
                     intent.putExtra("Name",users.getName());
@@ -91,8 +79,6 @@ public class UserAdapter2 extends RecyclerView.Adapter<UserAdapter2.MyViewHolder
 
                     context.startActivity(intent);
                      });
-
-
     }
 
     @Override
@@ -103,8 +89,6 @@ public class UserAdapter2 extends RecyclerView.Adapter<UserAdapter2.MyViewHolder
     public static class MyViewHolder extends RecyclerView.ViewHolder{
         TextView name,phone,time;
         ImageView profileImg;
-
-
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             name=itemView.findViewById(R.id.Profile_Name);

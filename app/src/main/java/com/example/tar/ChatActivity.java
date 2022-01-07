@@ -9,15 +9,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.tar.databinding.ActivityChatBinding;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -45,7 +41,7 @@ public class ChatActivity extends AppCompatActivity {
     DatabaseReference rootRef;
     FirebaseAuth auth;
     EditText messageBox;
-    String CurrentUserTime,CurrentDate;
+    String CurrentUserTime;
 
     String senderRoom, receiverRoom,userID;
 
@@ -66,12 +62,9 @@ public class ChatActivity extends AppCompatActivity {
         messages = new ArrayList<>();
         adapter = new MessagesAdapter(this, messages);
         messageBox=findViewById(R.id.messageBox);
-        messageBox.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                updateUserStatus("Typing");
-                return false;
-            }
+        messageBox.setOnTouchListener((v, event) -> {
+            updateUserStatus("Typing");
+            return false;
         });
 
 
@@ -93,12 +86,11 @@ public class ChatActivity extends AppCompatActivity {
         String name = getIntent().getStringExtra("Name");
         String receiverUid = getIntent().getStringExtra("uid");
         String profileUri = getIntent().getStringExtra("profileImg");
-        String state=getIntent().getStringExtra("status");
 
 
         String senderUid = FirebaseAuth.getInstance().getUid();
         String newName=name.substring(0,1).toUpperCase()+name.substring(1).toLowerCase();
-        user_name.setText("" + newName);
+        user_name.setText(newName);
 
         Picasso.get().load(profileUri).placeholder(R.drawable.avatar).into(binding.profile);
 
@@ -119,8 +111,8 @@ public class ChatActivity extends AppCompatActivity {
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        String state="";
-                        String lastSeen="";
+                        String state;
+                        String lastSeen;
                         if(snapshot.exists()){
                             state = snapshot.child("State").getValue(String.class);
                             switch (state) {
@@ -129,7 +121,7 @@ public class ChatActivity extends AppCompatActivity {
                                     Calendar calendar=Calendar.getInstance();
                                     SimpleDateFormat currentTime=new SimpleDateFormat("hh:mm a");
                                     CurrentUserTime=currentTime.format(calendar.getTime());
-                                    if(CurrentUserTime==lastSeen){
+                                    if(CurrentUserTime.equals(lastSeen)){
                                         status.setText(state);
                                     }else{
                                         status.setText("Last Seen: "+lastSeen);
@@ -141,7 +133,6 @@ public class ChatActivity extends AppCompatActivity {
                                     status.setText(state);
                                     break;
                             }
-                            //status.setText(state);
                         }
                         else{
                             lastSeen=snapshot.child("Time").getValue(String.class);
@@ -187,7 +178,6 @@ public class ChatActivity extends AppCompatActivity {
                 Calendar calendar=Calendar.getInstance();
                 SimpleDateFormat currentTime=new SimpleDateFormat("hh:mm a");
                 CurrentUserTime=currentTime.format(calendar.getTime());
-                //status.setText(""+CurrentUserTime);
                 Message message = new Message(messageTxt, senderUid, date.getTime());
                 binding.messageBox.setText("");
 
@@ -197,47 +187,30 @@ public class ChatActivity extends AppCompatActivity {
                 lastMsgObj.put("key",CurrentUserTime);
                 database.getReference().child("chats").child(senderRoom).updateChildren(lastMsgObj);
                 database.getReference().child("chats").child(receiverRoom).updateChildren(lastMsgObj);
+                //sending time to sort user data on home page
                 database.getReference().child("chats")
                         .child(senderRoom)
                         .child("messages")
                         .push()
-                        .setValue(message).addOnSuccessListener(new OnSuccessListener<Void>() {
-                            //sending time to sort user data on home page
-
-                    @Override
-                    public void onSuccess(Void unused) {
-                        database.getReference().child("chats")
+                        .setValue(message).addOnSuccessListener(unused -> database.getReference().child("chats")
                                 .child(receiverRoom)
                                 .child("messages")
                                 .push()
-                                .setValue(message).addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void unused) {
-                                HashMap<String,Object> onLineState=new HashMap<>();
-                                //onLineState.put("lastMsgTime",message.getMessage());
-                                onLineState.put("lastTimeMsg",CurrentUserTime);
-                                rootRef.child("user").child(auth.getCurrentUser().getUid())
-                                        .updateChildren(onLineState);
+                                .setValue(message).addOnSuccessListener(unused1 -> {
+                                    HashMap<String,Object> onLineState=new HashMap<>();
+                                    onLineState.put("lastTimeMsg",CurrentUserTime);
+                                    rootRef.child("user").child(auth.getCurrentUser().getUid())
+                                            .updateChildren(onLineState);
 
-                                updateUserStatus("Online");
-                            }
-
-                        });
-
-
-                    }
-                });
+                                    updateUserStatus("Online");
+                                }));
             }
         });
 
-        //getSupportActionBar().setTitle(name);
-        backBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent=new Intent(ChatActivity.this,Homepage.class);
-                startActivity(intent);
-                finish();
-            }
+        backBtn.setOnClickListener(view -> {
+            Intent intent=new Intent(ChatActivity.this,Homepage.class);
+            startActivity(intent);
+            finish();
         });
     }
 

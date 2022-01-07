@@ -33,7 +33,6 @@
             android:layout_gravity="center"
             android:layout_marginLeft="20dp"
             android:text="Select Contact"
-            android:textAllCaps="true"
             android:textColor="@color/white"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -55,18 +54,14 @@
             android:id="@+id/et_search"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:drawableStart="@drawable/ic_search"
-            android:drawablePadding="6dp"
-            android:hint="search"
+            android:drawableEnd="@drawable/ic_search"
+            android:hint="Search"
             android:inputType="text"
             android:maxLines="1"
+            android:backgroundTint="#A3CCCFCF"
             android:singleLine="true"
-            android:textSize="14sp" />
+            android:textStyle="bold" />
     </com.google.android.material.textfield.TextInputLayout>
-
-
-
-
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/mainUSerRecyclerview"
@@ -75,8 +70,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/til_search"
-            />
+            app:layout_constraintTop_toBottomOf="@id/til_search"/>
 
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton

@@ -28,12 +28,9 @@ public class Login extends AppCompatActivity {
             startActivity(new Intent(getApplicationContext(),Homepage.class));
             finish();
         }
-        btnGoogle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent=new Intent(Login.this,GoogleSignInActivity.class);
-                startActivity(intent);
-            }
+        btnGoogle.setOnClickListener(view -> {
+            Intent intent=new Intent(Login.this,GoogleSignInActivity.class);
+            startActivity(intent);
         });
        /*RegisterNow.setOnClickListener(new View.OnClickListener() {
            @Override

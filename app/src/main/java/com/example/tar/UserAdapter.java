@@ -25,6 +25,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.MyViewHolder> 
     ArrayList<Users> usersArrayList;
     String lastMsg;
     String state;
+    String timestr;
     FirebaseDatabase database;
     DateTimeHelper dt = new DateTimeHelper();
 
@@ -33,6 +34,8 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.MyViewHolder> 
         this.usersArrayList=usersArrayList;
 
     }
+
+
 
 
     @NonNull
@@ -61,14 +64,16 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.MyViewHolder> 
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        lastMsg=snapshot.child("lastMsg").getValue(String.class);
+                        //lastMsg=snapshot.child("lastMsg").getValue(String.class);
                         if(snapshot.exists()){
                             lastMsg=snapshot.child("lastMsg").getValue(String.class);
                             long time = snapshot.child("lastMsgTime").getValue(Long.class);
-                            String timestr = dt.getTimeTodayYestFromMilli(time);
+                            timestr = dt.getTimeTodayYestFromMilli(time);
+
                             holder.time.setText(timestr);
                             holder.phone.setText(lastMsg);
                             Picasso.get().load(users.getUserProfile()).placeholder(R.drawable.watsapp).into(holder.imageView);
+
                         }else
                             {
                                 holder.itemView.setVisibility(View.GONE);
@@ -109,6 +114,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.MyViewHolder> 
 
                     }
                 });*/
+
         String upperString = users.Name.substring(0, 1).toUpperCase() + users.Name.substring(1).toLowerCase();
 
         holder.name.setText(upperString);

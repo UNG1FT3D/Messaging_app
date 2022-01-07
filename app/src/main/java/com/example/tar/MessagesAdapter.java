@@ -8,11 +8,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.tar.databinding.ItemReceiveBinding;
 import com.example.tar.databinding.ItemSentBinding;
 import com.example.tar.utils.DateTimeHelper;
+import com.example.tar.utils.DateTimeHelper2;
 import com.google.firebase.auth.FirebaseAuth;
-
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class MessagesAdapter extends RecyclerView.Adapter{
 
@@ -21,11 +19,7 @@ public class MessagesAdapter extends RecyclerView.Adapter{
 
     final int ITEM_SENT = 1;
     final int ITEM_RECEIVE = 2;
-
-    String senderRoom;
-    String receiverRoom;
     DateTimeHelper dt = new DateTimeHelper();
-
 
 
     public MessagesAdapter(Context context, ArrayList<Message> messages) {
@@ -60,6 +54,7 @@ public class MessagesAdapter extends RecyclerView.Adapter{
         }
     }
 
+
     public int getItemViewType(int position) {
         Message message = messages.get(position);
         if(FirebaseAuth.getInstance().getUid().equals(message.getSenderId())) {
@@ -91,5 +86,6 @@ public class MessagesAdapter extends RecyclerView.Adapter{
 
         }
     }
+
 
 }

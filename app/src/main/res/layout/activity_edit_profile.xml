@@ -10,16 +10,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/teal_700"/>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:text="User Profile"
-        android:textAllCaps="true"
-        android:textSize="18sp"
         android:layout_marginLeft="35dp"
+        android:layout_marginTop="15dp"
         android:fontFamily="@font/roboto_medium"
-        android:textColor="@color/white"/>
+        android:text="User Profile"
+        android:textColor="@color/white"
+        android:textSize="18sp" />
 
     <ImageView
         android:layout_width="wrap_content"
@@ -39,8 +39,8 @@
 
 
         <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
             android:layout_gravity="center_horizontal"
             android:layout_margin="20dp"
             android:orientation="vertical">
@@ -53,16 +53,16 @@
                 app:civ_border_color="#959191"
                 app:civ_border_width="0dp" />
 
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+
+            <ImageButton
                 android:id="@+id/getImage"
-                android:layout_alignEnd="@+id/profile_image"
-                android:layout_alignBottom="@+id/profile_image"
-                android:backgroundTint="@color/teal_700"
-                android:scaleType="centerInside"
-                android:src="@drawable/camera"
-                android:tint="@color/white" />
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/roundbtn"
+                android:src="@drawable/camera" />
 
 
         </RelativeLayout>
@@ -99,26 +99,32 @@
                         android:textSize="15dp"
                         android:layout_marginLeft="10dp"
                         android:text="UserName"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/user_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/roboto_medium"
+                        android:text="UserName"
+                        android:textColor="@color/black"
+                        android:textSize="18sp" />
                     <ImageButton
-                        android:layout_width="35dp"
-                        android:layout_height="35dp"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
                         android:backgroundTint="@color/white"
                         android:layout_gravity="right"
                         android:id="@+id/saveUsername"
                         android:src="@drawable/editimg"/>
-
                 </LinearLayout>
 
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/black"
-                    android:id="@+id/user_name"
-                    android:textSize="18sp"
-                    android:layout_marginTop="-15dp"
-                    android:layout_marginLeft="10dp"
-                    android:fontFamily="@font/roboto_medium"
-                    android:text="UserName"/>
+
 
             </LinearLayout>
         </LinearLayout>
