@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.tar.databinding.ItemReceiveBinding;
 import com.example.tar.databinding.ItemSentBinding;
 import com.example.tar.utils.DateTimeHelper;
-import com.example.tar.utils.DateTimeHelper2;
 import com.google.firebase.auth.FirebaseAuth;
 import java.util.ArrayList;
 

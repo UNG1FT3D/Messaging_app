@@ -25,7 +25,7 @@ public class Login extends AppCompatActivity {
         mAuth=FirebaseAuth.getInstance();
 
         if(auth.getCurrentUser()!=null){
-            startActivity(new Intent(getApplicationContext(),Homepage.class));
+            startActivity(new Intent(getApplicationContext(),HomePage2.class));
             finish();
         }
         btnGoogle.setOnClickListener(view -> {

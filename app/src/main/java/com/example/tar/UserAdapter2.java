@@ -72,10 +72,12 @@ public class UserAdapter2 extends RecyclerView.Adapter<UserAdapter2.MyViewHolder
                 holder.itemView.setLayoutParams(params);
                 }
                 holder.name.setText(users.Name);
+                //holder.time.setText(users.email);
                 holder.itemView.setOnClickListener(view -> {
                     Intent intent=new Intent(context,ChatActivity.class);
                     intent.putExtra("Name",users.getName());
                     intent.putExtra("uid",users.getUid());
+                    intent.putExtra("profileImg",users.getUserProfile());
 
                     context.startActivity(intent);
                      });

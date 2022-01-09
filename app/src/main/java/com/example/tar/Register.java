@@ -91,7 +91,7 @@ public class Register extends AppCompatActivity {
             Users users = new Users(personEmail, personName, auth.getUid(),photoId);
             reference.setValue(users).addOnCompleteListener(task1 -> {
                 if (task1.isSuccessful()) {
-                    Intent intent=new Intent(Register.this,Homepage.class);
+                    Intent intent=new Intent(Register.this,HomePage2.class);
                     startActivity(intent);
                 }
             });

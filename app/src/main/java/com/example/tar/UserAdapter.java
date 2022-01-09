@@ -34,10 +34,6 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.MyViewHolder> 
         this.usersArrayList=usersArrayList;
 
     }
-
-
-
-
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -69,17 +65,16 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.MyViewHolder> 
                             lastMsg=snapshot.child("lastMsg").getValue(String.class);
                             long time = snapshot.child("lastMsgTime").getValue(Long.class);
                             timestr = dt.getTimeTodayYestFromMilli(time);
-
                             holder.time.setText(timestr);
                             holder.phone.setText(lastMsg);
                             Picasso.get().load(users.getUserProfile()).placeholder(R.drawable.watsapp).into(holder.imageView);
 
                         }else
                             {
-                                holder.itemView.setVisibility(View.GONE);
                                 ViewGroup.LayoutParams params = holder.itemView.getLayoutParams();
                                 params.height = 0;
                                 holder.itemView.setLayoutParams(params);
+                                holder.itemView.setVisibility(View.GONE);
                         }
                     }
 
@@ -91,8 +86,10 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.MyViewHolder> 
 
 
         if(FirebaseAuth.getInstance().getCurrentUser().getUid().equals(users.getUid())){
-            holder.itemView.setVisibility(View.GONE);
+            ViewGroup.LayoutParams params = holder.itemView.getLayoutParams();
             holder.itemView.setLayoutParams(new RecyclerView.LayoutParams(0, 0));
+            holder.itemView.setLayoutParams(params);
+            holder.itemView.setVisibility(View.GONE);
         }
 
         /*FirebaseDatabase.getInstance().getReference()
@@ -123,7 +120,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.MyViewHolder> 
                 intent.putExtra("Name",users.getName());
                 intent.putExtra("uid",users.getUid());
                 intent.putExtra("profileImg",users.getUserProfile());
-                intent.putExtra("status",state);
+                intent.putExtra("CurrentUri",state);
                 context.startActivity(intent);
             });
 

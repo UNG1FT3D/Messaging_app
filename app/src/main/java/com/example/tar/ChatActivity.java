@@ -41,7 +41,7 @@ public class ChatActivity extends AppCompatActivity {
     DatabaseReference rootRef;
     FirebaseAuth auth;
     EditText messageBox;
-    String CurrentUserTime;
+    String CurrentUserTime,currentUserUri;
 
     String senderRoom, receiverRoom,userID;
 
@@ -63,7 +63,12 @@ public class ChatActivity extends AppCompatActivity {
         adapter = new MessagesAdapter(this, messages);
         messageBox=findViewById(R.id.messageBox);
         messageBox.setOnTouchListener((v, event) -> {
-            updateUserStatus("Typing");
+            if(messageBox!=null){
+                updateUserStatus("Typing");
+            }
+            else{
+                updateUserStatus("Online");
+            }
             return false;
         });
 
@@ -86,12 +91,12 @@ public class ChatActivity extends AppCompatActivity {
         String name = getIntent().getStringExtra("Name");
         String receiverUid = getIntent().getStringExtra("uid");
         String profileUri = getIntent().getStringExtra("profileImg");
+        currentUserUri=auth.getCurrentUser().getPhotoUrl().toString();
 
 
         String senderUid = FirebaseAuth.getInstance().getUid();
         String newName=name.substring(0,1).toUpperCase()+name.substring(1).toLowerCase();
         user_name.setText(newName);
-
         Picasso.get().load(profileUri).placeholder(R.drawable.avatar).into(binding.profile);
 
 
@@ -187,23 +192,54 @@ public class ChatActivity extends AppCompatActivity {
                 lastMsgObj.put("key",CurrentUserTime);
                 database.getReference().child("chats").child(senderRoom).updateChildren(lastMsgObj);
                 database.getReference().child("chats").child(receiverRoom).updateChildren(lastMsgObj);
-                //sending time to sort user data on home page
+
+
+                //making of friends table for sorting things
+                HashMap<String, Object> lastMsgObj2 = new HashMap<>();
+                lastMsgObj2.put("friend", receiverUid);//some change related to this
+                lastMsgObj2.put("lastMsg", message.getMessage());
+                lastMsgObj2.put("lastMsgTime", date.getTime());
+                lastMsgObj2.put("key",CurrentUserTime);
+                lastMsgObj2.put("name", name);
+                lastMsgObj2.put("profileUri", profileUri);
+                database.getReference().child("UserChat")
+                        .child(senderUid)//current user
+                        .child("Friends")
+                        .child(receiverUid)
+                        .updateChildren(lastMsgObj2);
+
+                HashMap<String, Object> lastMsgObj3 = new HashMap<>();
+                lastMsgObj3.put("friend", senderUid);//some change related to this
+                lastMsgObj3.put("lastMsg", message.getMessage());
+                lastMsgObj3.put("lastMsgTime", date.getTime());
+                lastMsgObj3.put("key",CurrentUserTime);
+                lastMsgObj3.put("name", name);
+                lastMsgObj3.put("profileUri", currentUserUri);
+                database.getReference().child("UserChat")
+                        .child(receiverUid)
+                        .child("Friends")
+                        .child(senderUid)
+                        .updateChildren(lastMsgObj3);
+
+                //sending messages to message table
                 database.getReference().child("chats")
                         .child(senderRoom)
                         .child("messages")
                         .push()
-                        .setValue(message).addOnSuccessListener(unused -> database.getReference().child("chats")
-                                .child(receiverRoom)
-                                .child("messages")
-                                .push()
-                                .setValue(message).addOnSuccessListener(unused1 -> {
-                                    HashMap<String,Object> onLineState=new HashMap<>();
-                                    onLineState.put("lastTimeMsg",CurrentUserTime);
-                                    rootRef.child("user").child(auth.getCurrentUser().getUid())
-                                            .updateChildren(onLineState);
+                        .setValue(message).addOnSuccessListener(unused -> {
+                    database.getReference().child("chats")
+                            .child(receiverRoom)
+                            .child("messages")
+                            .push()
+                            .setValue(message).addOnSuccessListener(unused1 -> {
+                        HashMap<String, Object> onLineState = new HashMap<>();
+                        onLineState.put("lastTimeMsg", CurrentUserTime);
+                        rootRef.child("user").child(auth.getCurrentUser().getUid())
+                                .updateChildren(onLineState);
 
-                                    updateUserStatus("Online");
-                                }));
+                        updateUserStatus("Online");
+                    });
+                });
             }
         });
 

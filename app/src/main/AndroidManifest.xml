@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TAR">
         <activity
-            android:name=".Refresh"
+            android:name=".Homepage"
             android:exported="true" />
         <activity
             android:name=".EditProfile"
@@ -31,7 +31,7 @@
             android:name=".InvitePage"
             android:exported="true" />
         <activity
-            android:name=".Homepage"
+            android:name=".HomePage2"
             android:exported="true" />
         <activity
             android:name=".Register"

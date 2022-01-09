@@ -23,55 +23,97 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class Homepage extends AppCompatActivity {
+public class HomePage2 extends AppCompatActivity {
+
     FirebaseAuth auth;
     RecyclerView mainUserRecyclerView;
-    UserAdapter adapter;
+    DatabaseReference rootRef;
+    UserAdapterNew  adapter;
+    ArrayList<UserSorting> usersArrayList;
     FirebaseDatabase database,database2;
     FirebaseFirestore db;
-    DatabaseReference rootRef;
     ExtendedFloatingActionButton inviteBtn;
     String userID;
+    String image;
     ImageView logout,currentProfile;
-    ArrayList<Users> usersArrayList;
-
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_homepage);
-        getWindow().setStatusBarColor(ContextCompat.getColor(Homepage.this,R.color.teal_700));
-
-
+        setContentView(R.layout.activity_home_page2);
+        getWindow().setStatusBarColor(ContextCompat.getColor(HomePage2.this, R.color.teal_700));
         auth=FirebaseAuth.getInstance();
         db=FirebaseFirestore.getInstance();
         database=FirebaseDatabase.getInstance();
         database2=FirebaseDatabase.getInstance();
         rootRef=FirebaseDatabase.getInstance().getReference();
+        inviteBtn=findViewById(R.id.AddContact);
+        currentProfile=findViewById(R.id.currentUser_profile);
 
         userID= Objects.requireNonNull(auth.getCurrentUser().getUid());
-        usersArrayList =new ArrayList<>();
-        adapter=new UserAdapter(this,usersArrayList);
+
+        mainUserRecyclerView=findViewById(R.id.mainUSerRecyclerview);
+        mainUserRecyclerView.setHasFixedSize(true);
+        LinearLayoutManager manager=new LinearLayoutManager(this);
+        mainUserRecyclerView.setLayoutManager(manager);
+        usersArrayList=new ArrayList<>();
+        adapter=new UserAdapterNew(this,usersArrayList);
+        mainUserRecyclerView.setAdapter(adapter);
+        manager.setReverseLayout(true);
+        manager.setStackFromEnd(true);
+
+
+        inviteBtn.setOnClickListener(view -> {
+            Intent intent=new Intent(HomePage2.this,AllUsersNew.class);
+            startActivity(intent);
+        });
+        currentProfile.setOnClickListener(v -> {
+            Intent intent=new Intent(HomePage2.this,EditProfile.class);
+            intent.putExtra("Name",auth.getCurrentUser().getDisplayName());
+            intent.putExtra("uid",auth.getUid());
+            intent.putExtra("profileImg",auth.getCurrentUser().getPhotoUrl());
+            startActivity(intent);
+        });
+
+
+        rootRef.child("UserChat").child(userID).child("Friends").orderByChild("lastMsgTime").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                usersArrayList.clear();
+                for(DataSnapshot dataSnapshot:snapshot.getChildren()){
+                    UserSorting userSorting=dataSnapshot.getValue(UserSorting.class);
+                    usersArrayList.add(userSorting);
+
+                }adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
 
         logout=findViewById(R.id.logout);
         inviteBtn=findViewById(R.id.AddContact);
         currentProfile=findViewById(R.id.currentUser_profile);
-        mainUserRecyclerView=findViewById(R.id.mainUSerRecyclerview);
-        LinearLayoutManager manager=new LinearLayoutManager(this);
-        mainUserRecyclerView.setHasFixedSize(true);
-        adapter = new UserAdapter(Homepage.this, usersArrayList);
-        mainUserRecyclerView.setLayoutManager(manager);
 
-        //manager.setReverseLayout(true);//Working
-        //manager.setStackFromEnd(true);
+        if(auth.getCurrentUser()==null){
+            startActivity(new Intent(HomePage2.this,Login.class));
+        }
 
+        logout.setOnClickListener(view -> {
+            /*FirebaseAuth.getInstance().signOut();
+            startActivity(new Intent(Homepage.this, Login.class));
+            finish();*/
+            Intent intent=new Intent(HomePage2.this,HomePage2.class);
+            startActivity(intent);
+        });
 
-        //For Account Setting Image
         database.getReference().child("user").child(auth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String image;
                 if(snapshot.exists()){
                     image=snapshot.child("userProfile").getValue(String.class);
                     Picasso.get().load(image).placeholder(R.drawable.watsapp).into(currentProfile);
@@ -84,51 +126,5 @@ public class Homepage extends AppCompatActivity {
             }
         });
 
-
-        mainUserRecyclerView.setAdapter(adapter);
-
-        currentProfile.setOnClickListener(v -> {
-            Intent intent=new Intent(Homepage.this,EditProfile.class);
-            intent.putExtra("Name",auth.getCurrentUser().getDisplayName());
-            intent.putExtra("uid",auth.getUid());
-            intent.putExtra("profileImg",auth.getCurrentUser().getPhotoUrl());
-            startActivity(intent);
-        });
-
-        inviteBtn.setOnClickListener(view -> {
-            Intent intent=new Intent(Homepage.this,AllUsersNew.class);
-            startActivity(intent);
-        });
-
-
-
-        if(auth.getCurrentUser()==null){
-            startActivity(new Intent(Homepage.this,Login.class));
-        }
-
-        logout.setOnClickListener(view -> {
-            /*FirebaseAuth.getInstance().signOut();
-            startActivity(new Intent(Homepage.this, Login.class));
-            finish();*/
-            Intent intent=new Intent(Homepage.this,HomePage2.class);
-            startActivity(intent);
-        });
-
-        database.getReference().child("user").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                usersArrayList.clear();
-                for(DataSnapshot dataSnapshot:snapshot.getChildren()){
-                    Users users=dataSnapshot.getValue(Users.class);
-                    usersArrayList.add(users);
-               }
-                adapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
     }
 }

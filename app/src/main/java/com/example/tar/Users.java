@@ -8,11 +8,33 @@ public class Users {
     String phone;
     String status;
     String uid;
+    String time1,lastMsg1;
+
+    public Users(String time1, String lastMsg1) {
+        this.time1 = time1;
+        this.lastMsg1 = lastMsg1;
+    }
 
     public Users() {
     }
 
-    public Users(String email, String name , String uid,String Userprofile) {
+    public String getTime() {
+        return time1;
+    }
+
+    public void setTime(String time) {
+        this.time1 = time;
+    }
+
+    public String getLastMsg() {
+        return lastMsg1;
+    }
+
+    public void setLastMsg(String lastMsg) {
+        this.lastMsg1 = lastMsg;
+    }
+
+    public Users(String email, String name , String uid, String Userprofile) {
         this.email = email;
         this.Name = name;
         this.UserProfile = Userprofile;
