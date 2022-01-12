@@ -24,11 +24,11 @@
         android:layout_marginLeft="20dp"
         android:layout_marginTop="-30dp"
         android:fontFamily="@font/antic"
-        android:textStyle="bold"
-        android:text="Peopleist messenger"
+        android:text="tar messenger"
         android:textAllCaps="true"
         android:textColor="#3C3939"
-        android:textSize="40sp" />
+        android:textSize="40sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/sLogo"

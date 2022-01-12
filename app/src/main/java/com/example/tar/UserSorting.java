@@ -2,10 +2,10 @@ package com.example.tar;
 
 public class UserSorting {
     String name,lastMsg,profileUri,friend;
-    private long timestamp;
+    private long lastMsgTime;
 
-    public long getTimestamp() {
-        return timestamp;
+    public long getLastMsgTime() {
+        return lastMsgTime;
     }
 
     public String getName() {

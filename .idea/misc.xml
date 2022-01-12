@@ -14,12 +14,17 @@
         <entry key="..\:/Users/rajbh/AndroidStudioProjects/TAR-master/app/src/main/res/layout/activity_home_page2.xml" value="0.24048913043478262" />
         <entry key="..\:/Users/rajbh/AndroidStudioProjects/TAR-master/app/src/main/res/layout/activity_homepage.xml" value="0.15081521739130435" />
         <entry key="..\:/Users/rajbh/AndroidStudioProjects/TAR-master/app/src/main/res/layout/activity_homepage2.xml" value="0.24048913043478262" />
+        <entry key="..\:/Users/rajbh/AndroidStudioProjects/TAR-master/app/src/main/res/layout/activity_invite_page.xml" value="0.24048913043478262" />
         <entry key="..\:/Users/rajbh/AndroidStudioProjects/TAR-master/app/src/main/res/layout/activity_login.xml" value="0.24048913043478262" />
+        <entry key="..\:/Users/rajbh/AndroidStudioProjects/TAR-master/app/src/main/res/layout/activity_refresh.xml" value="0.24048913043478262" />
+        <entry key="..\:/Users/rajbh/AndroidStudioProjects/TAR-master/app/src/main/res/layout/activity_register.xml" value="0.24048913043478262" />
         <entry key="..\:/Users/rajbh/AndroidStudioProjects/TAR-master/app/src/main/res/layout/datestamp.xml" value="0.264" />
         <entry key="..\:/Users/rajbh/AndroidStudioProjects/TAR-master/app/src/main/res/layout/edit_name.xml" value="0.24048913043478262" />
-        <entry key="..\:/Users/rajbh/AndroidStudioProjects/TAR-master/app/src/main/res/layout/item_sent.xml" value="0.24048913043478262" />
+        <entry key="..\:/Users/rajbh/AndroidStudioProjects/TAR-master/app/src/main/res/layout/item_receive.xml" value="0.24048913043478262" />
+        <entry key="..\:/Users/rajbh/AndroidStudioProjects/TAR-master/app/src/main/res/layout/item_sent.xml" value="0.8800000000000001" />
         <entry key="..\:/Users/rajbh/AndroidStudioProjects/TAR-master/app/src/main/res/layout/item_user_row.xml" value="0.24048913043478262" />
         <entry key="..\:/Users/rajbh/AndroidStudioProjects/TAR-master/app/src/main/res/layout/reciever_layout.xml" value="0.24048913043478262" />
+        <entry key="..\:/Users/rajbh/AndroidStudioProjects/TAR-master/app/src/main/res/layout/sender_layout.xml" value="0.24048913043478262" />
         <entry key="..\:/Users/rajbh/Downloads/firebaseChat/firebaseChat/app/src/main/res/drawable/recievershap.xml" value="0.26614583333333336" />
         <entry key="..\:/Users/rajbh/Downloads/firebaseChat/firebaseChat/app/src/main/res/drawable/sendbg.xml" value="0.26614583333333336" />
         <entry key="..\:/Users/rajbh/Downloads/firebaseChat/firebaseChat/app/src/main/res/drawable/sendddd.xml" value="0.26614583333333336" />

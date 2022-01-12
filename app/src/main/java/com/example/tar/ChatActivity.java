@@ -122,13 +122,15 @@ public class ChatActivity extends AppCompatActivity {
                             state = snapshot.child("State").getValue(String.class);
                             switch (state) {
                                 case "Offline":
-                                    lastSeen=snapshot.child("Time").getValue(String.class);
+                                    lastSeen=snapshot.child("Date").getValue(String.class);
                                     Calendar calendar=Calendar.getInstance();
-                                    SimpleDateFormat currentTime=new SimpleDateFormat("hh:mm a");
+                                    SimpleDateFormat currentTime=new SimpleDateFormat("dd/MM/yy");
                                     CurrentUserTime=currentTime.format(calendar.getTime());
                                     if(CurrentUserTime.equals(lastSeen)){
-                                        status.setText(state);
+                                        lastSeen=snapshot.child("Time").getValue(String.class);
+                                        status.setText("Last Seen: "+lastSeen);
                                     }else{
+                                        lastSeen=snapshot.child("Date").getValue(String.class);
                                         status.setText("Last Seen: "+lastSeen);
                                     }
                                     break;
@@ -196,11 +198,11 @@ public class ChatActivity extends AppCompatActivity {
 
                 //making of friends table for sorting things
                 HashMap<String, Object> lastMsgObj2 = new HashMap<>();
-                lastMsgObj2.put("friend", receiverUid);//some change related to this
+                lastMsgObj2.put("friend", receiverUid);
                 lastMsgObj2.put("lastMsg", message.getMessage());
                 lastMsgObj2.put("lastMsgTime", date.getTime());
                 lastMsgObj2.put("key",CurrentUserTime);
-                lastMsgObj2.put("name", name);
+                lastMsgObj2.put("name", name);            //check this
                 lastMsgObj2.put("profileUri", profileUri);
                 database.getReference().child("UserChat")
                         .child(senderUid)//current user
@@ -209,11 +211,11 @@ public class ChatActivity extends AppCompatActivity {
                         .updateChildren(lastMsgObj2);
 
                 HashMap<String, Object> lastMsgObj3 = new HashMap<>();
-                lastMsgObj3.put("friend", senderUid);//some change related to this
+                lastMsgObj3.put("friend", senderUid);
                 lastMsgObj3.put("lastMsg", message.getMessage());
                 lastMsgObj3.put("lastMsgTime", date.getTime());
                 lastMsgObj3.put("key",CurrentUserTime);
-                lastMsgObj3.put("name", name);
+                lastMsgObj3.put("name", auth.getCurrentUser().getDisplayName());
                 lastMsgObj3.put("profileUri", currentUserUri);
                 database.getReference().child("UserChat")
                         .child(receiverUid)
@@ -232,10 +234,10 @@ public class ChatActivity extends AppCompatActivity {
                             .child("messages")
                             .push()
                             .setValue(message).addOnSuccessListener(unused1 -> {
-                        HashMap<String, Object> onLineState = new HashMap<>();
+                       /* HashMap<String, Object> onLineState = new HashMap<>();
                         onLineState.put("lastTimeMsg", CurrentUserTime);
                         rootRef.child("user").child(auth.getCurrentUser().getUid())
-                                .updateChildren(onLineState);
+                                .updateChildren(onLineState);*/
 
                         updateUserStatus("Online");
                     });
@@ -244,7 +246,7 @@ public class ChatActivity extends AppCompatActivity {
         });
 
         backBtn.setOnClickListener(view -> {
-            Intent intent=new Intent(ChatActivity.this,Homepage.class);
+            Intent intent=new Intent(ChatActivity.this,HomePage2.class);
             startActivity(intent);
             finish();
         });
@@ -269,7 +271,7 @@ public class ChatActivity extends AppCompatActivity {
         String CurrentUserTime,CurrentDate;
         Calendar calendar=Calendar.getInstance();
 
-        SimpleDateFormat currentDate=new SimpleDateFormat("MM dd, yyyy");
+        SimpleDateFormat currentDate=new SimpleDateFormat("dd/MM/yy");
         CurrentDate=currentDate.format(calendar.getTime());
 
         SimpleDateFormat currentTime=new SimpleDateFormat("hh:mm a");

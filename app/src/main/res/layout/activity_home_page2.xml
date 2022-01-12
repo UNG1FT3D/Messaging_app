@@ -25,7 +25,7 @@
             android:layout_gravity="center"
             android:layout_marginLeft="20dp"
             android:fontFamily="@font/roboto_medium"
-            android:text="Peopleist Messenger"
+            android:text="TAR"
             android:textAllCaps="true"
             android:textColor="@color/white"
             android:textSize="18sp" />

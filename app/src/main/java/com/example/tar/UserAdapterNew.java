@@ -13,10 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.tar.utils.DateTimeHelper;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -68,8 +65,9 @@ public class UserAdapterNew extends RecyclerView.Adapter<UserAdapterNew.MyViewHo
 
             }
         });*/
-        long time= userSorting.getTimestamp();
-        String timeStr=dt.getTimestampToTime(time);
+
+        long time= userSorting.getLastMsgTime();
+        String timeStr=dt.getTimeTodayYestFromMilli(time);
         String upperString = userSorting.name.substring(0, 1).toUpperCase() + userSorting.name.substring(1).toLowerCase();
         holder.name1.setText(upperString);
         holder.lastMsg1.setText(userSorting.getLastMsg());

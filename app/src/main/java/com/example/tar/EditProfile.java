@@ -64,7 +64,7 @@ public class EditProfile extends AppCompatActivity {
         edit=findViewById(R.id.saveUsername);
 
         BacKBtn.setOnClickListener(v -> {
-            Intent intent=new Intent(EditProfile.this,Homepage.class);
+            Intent intent=new Intent(EditProfile.this,HomePage2.class);
             startActivity(intent);
         });
 
@@ -116,7 +116,7 @@ public class EditProfile extends AppCompatActivity {
 
             rootRef.child("user").child(auth.getCurrentUser().getUid())
                     .updateChildren(onLineState);
-            Intent intent=new Intent(EditProfile.this,Homepage.class);
+            Intent intent=new Intent(EditProfile.this,HomePage2.class);
             startActivity(intent);
             if(imageUri!=null){
                 storageReference.putFile(imageUri).addOnCompleteListener(task -> storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {

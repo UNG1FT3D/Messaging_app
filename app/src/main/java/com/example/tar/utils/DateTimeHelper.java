@@ -33,15 +33,16 @@ public class DateTimeHelper {
         ) {
             return "" + DateFormat.format(strTimeFormate, messageTime);
             //return "Today";
+            //return null;
         } else if (
                 ((now.get(Calendar.DATE) - messageTime.get(Calendar.DATE)) == 1) && ((now.get(Calendar.MONTH) == messageTime.get(Calendar.MONTH))) &&
                         ((now.get(Calendar.YEAR) == messageTime.get(Calendar.YEAR)))
         ) {
-//            return "yesterday at " + DateFormat.format(strTimeFormate, messageTime);
+            //return "yesterday at " + DateFormat.format(strTimeFormate, messageTime);
             return "Yesterday";
         } else {
             String mDay = DateFormat.format(strDateFormate, messageTime) + "";
-//            return "date : " + DateFormat.format(strDateFormate, messageTime);
+//          return "date : " + DateFormat.format(strDateFormate, messageTime);
             return DateFormat.format(strDateFormate, messageTime) + "";
         }
     }

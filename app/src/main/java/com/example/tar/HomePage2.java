@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageView;
 
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
@@ -84,6 +85,7 @@ public class HomePage2 extends AppCompatActivity {
                 for(DataSnapshot dataSnapshot:snapshot.getChildren()){
                     UserSorting userSorting=dataSnapshot.getValue(UserSorting.class);
                     usersArrayList.add(userSorting);
+                    Log.d("SORT", "onDataChange: "+userSorting.getLastMsgTime());
 
                 }adapter.notifyDataSetChanged();
             }
@@ -104,11 +106,11 @@ public class HomePage2 extends AppCompatActivity {
         }
 
         logout.setOnClickListener(view -> {
-            /*FirebaseAuth.getInstance().signOut();
-            startActivity(new Intent(Homepage.this, Login.class));
-            finish();*/
-            Intent intent=new Intent(HomePage2.this,HomePage2.class);
-            startActivity(intent);
+            FirebaseAuth.getInstance().signOut();
+            startActivity(new Intent(HomePage2.this, Login.class));
+            finish();
+            /*Intent intent=new Intent(HomePage2.this,HomePage2.class);
+            startActivity(intent);*/
         });
 
         database.getReference().child("user").child(auth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {

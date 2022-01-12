@@ -76,7 +76,7 @@ public class AllUsersNew extends AppCompatActivity {
             finish();
         });
         BackButton.setOnClickListener(v -> {
-            Intent intent=new Intent(AllUsersNew.this,Homepage.class);
+            Intent intent=new Intent(AllUsersNew.this,HomePage2.class);
             startActivity(intent);
             finish();
         });
@@ -92,7 +92,7 @@ public class AllUsersNew extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 String str  = etSearch.getText().toString();
                     List<Users> filterUsers = usersArrayList.stream()
-                            .filter(user -> user.Name.contains(s.toString()))
+                            .filter(user -> user.Name.toLowerCase().contains(s.toString().toLowerCase()))
                             .collect(Collectors.toList());
                     adapter.updateData(new ArrayList<>(filterUsers));
              }
